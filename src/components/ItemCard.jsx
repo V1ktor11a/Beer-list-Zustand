@@ -6,21 +6,42 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const ItemCard = ({ id, name, description, imageUrl }) => {
+  const navigate = useNavigate();
   return (
-    <Card sx={{ maxWidth: 200 }}>
+    <Card sx={{ width: 350, height: 300 }}>
       <CardActionArea
+        sx={{ display: 'flex', height: '100%' }}
         onClick={() => {
-          console.log(id);
+          navigate(`/items/${id}`);
         }}
       >
-        <CardMedia component='img' height='200' image={imageUrl} />
-        <CardContent>
-          <Typography gutterBottom variant='h6' component='div'>
+        <CardMedia
+          component='img'
+          sx={{
+            width: 120,
+            height: '100%',
+            padding: 2,
+            flexShrink: 0,
+            objectFit: 'contain',
+          }}
+          image={imageUrl}
+        />
+        <CardContent
+          sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+        >
+          <Typography gutterBottom variant='h6' component='h6'>
             {name}
           </Typography>
-          <Typography variant='body2' color='text.secondary'>
+          <Typography
+            variant='body2'
+            color='text.secondary'
+            sx={{
+              overflow: 'auto',
+            }}
+          >
             {description}
           </Typography>
         </CardContent>

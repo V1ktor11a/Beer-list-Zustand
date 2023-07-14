@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import ItemCard from '../components/ItemCard';
 import { Box, Grid, Typography } from '@mui/material';
-
-const ITEM = {
-  id: 1,
-  name: 'Buzz',
-  tagline: 'A Real Bitter Experience.',
-  first_brewed: '09/2007',
-  description:
-    'A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.',
-  image_url: 'https://images.punkapi.com/v2/keg.png',
-  abv: 4.5,
-  ibu: 60,
-  target_fg: 1010,
-  target_og: 1044,
-  ebc: 20,
-  srm: 10,
-  ph: 4.4,
-  attenuation_level: 75,
-};
+import { useBeerStore } from '../store/store';
 
 const Home = () => {
+  const [reducedList, setReducedList] = useState([]);
+  const { allItems, saveAllItems } = useBeerStore();
+
+  useEffect(() => {
+    const getData = async () => {
+      const data = await fetch('https://api.punkapi.com/v2/beers?page=1').then(
+        (response) => response.json()
+      );
+
+      saveAllItems(data);
+    };
+    if (allItems === undefined) {
+      getData().catch(console.error);
+    }
+    if (allItems !== undefined) {
+      const data = allItems.slice(0, 15);
+      setReducedList(data);
+    }
+  }, [allItems]);
+
   return (
     <Box>
       <Typography
@@ -32,13 +35,13 @@ const Home = () => {
         List Of Items
       </Typography>
       <Grid container justifyContent='center' spacing={2}>
-        {Array.from(Array(15)).map((i, idx) => (
-          <Grid item key={idx}>
+        {reducedList.map((item) => (
+          <Grid item key={item.id}>
             <ItemCard
-              id={ITEM.id}
-              name={ITEM.name}
-              description={ITEM.description}
-              imageUrl={ITEM.image_url}
+              id={item.id}
+              name={item.name}
+              description={item.description}
+              imageUrl={item.image_url}
             />
           </Grid>
         ))}

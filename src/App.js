@@ -7,10 +7,11 @@ function App() {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth='md' sx={{ bgcolor: '#cfe8fc' }}>
+      <Container sx={{ bgcolor: '#cfe8fc' }}>
         <Routes>
           <Route path='/' exact element={<Home />} />
-          <Route path='/item' exact element={<SingleItem />} />
+          <Route path='items/:id' element={<SingleItem />} />
+          <Route path='/' element={<Home />} />
         </Routes>
       </Container>
     </>
