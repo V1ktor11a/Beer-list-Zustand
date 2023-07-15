@@ -35,9 +35,17 @@ const SingleItem = () => {
           image={currentItem.image_url}
         />
         <CardContent
-          sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+          sx={{
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
         >
-          <Typography gutterBottom variant='h6' component='h6'>
+          <Typography
+            variant='h5'
+            component='h5'
+            sx={{ marginTop: 3, marginBottom: 3 }}
+          >
             {currentItem.name}
           </Typography>
           <Typography
@@ -51,7 +59,7 @@ const SingleItem = () => {
           </Typography>
           <Fab
             variant='extended'
-            sx={{ position: 'fixed', bottom: 40, right: 60 }}
+            sx={{ position: 'fixed', bottom: 50, right: 60 }}
           >
             <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
               Back to the list
