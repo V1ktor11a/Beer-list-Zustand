@@ -8,14 +8,27 @@ import {
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ItemCard = ({ id, name, description, imageUrl }) => {
+const ItemCard = ({ id, name, description, imageUrl, onItemSelect }) => {
   const navigate = useNavigate();
   return (
     <Card sx={{ width: 350, height: 300 }}>
       <CardActionArea
         sx={{ display: 'flex', height: '100%' }}
-        onClick={() => {
-          navigate(`/items/${id}`);
+        onMouseUp={(e) => {
+          switch (e.button) {
+            case 0:
+              navigate(`/items/${id}`);
+              break;
+            case 2:
+              onItemSelect(id);
+              break;
+            default:
+              break;
+          }
+        }}
+        //Prevent context menu on right button mouse click
+        onContextMenu={(e) => {
+          e.preventDefault();
         }}
       >
         <CardMedia

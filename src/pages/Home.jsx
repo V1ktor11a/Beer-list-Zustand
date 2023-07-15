@@ -24,6 +24,10 @@ const Home = () => {
     }
   }, [allItems]);
 
+  const onItemSelect = (id) => {
+    console.log(id);
+  };
+
   return (
     <Box>
       <Typography
@@ -42,6 +46,7 @@ const Home = () => {
               name={item.name}
               description={item.description}
               imageUrl={item.image_url}
+              onItemSelect={onItemSelect}
             />
           </Grid>
         ))}
