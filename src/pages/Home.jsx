@@ -11,33 +11,45 @@ const Home = () => {
     selectedItems,
     setSelectedItems,
     onSelectedDelete,
+    page,
   } = useBeerStore();
-  useEffect(() => {
-    const getData = async () => {
-      const data = await fetch('https://api.punkapi.com/v2/beers?page=1').then(
-        (response) => response.json()
-      );
 
-      saveAllItems(data);
-    };
+  //Fetch new items
+  const getData = async (page = 1) => {
+    const data = await fetch(
+      `https://api.punkapi.com/v2/beers?page=${page}`
+    ).then((response) => response.json());
+
+    saveAllItems(data);
+  };
+
+  // Gets initial data and recalculates visible cards
+  useEffect(() => {
     if (allItems === undefined) {
       getData().catch(console.error);
     }
     if (allItems !== undefined) {
       const data = allItems.slice(0, 15);
-      console.log(data.length);
+
       setReducedList(data);
     }
   }, [allItems]);
 
-  //Toggle item selection
+  // Loads next pages
+  useEffect(() => {
+    if (allItems !== undefined && allItems.length === 0 && page !== 1) {
+      getData(page).catch(console.error);
+    }
+  }, [page]);
+
+  // Toggle item selection
   const onItemSelect = (id) => {
     let newSelected = [...selectedItems];
     if (selectedItems.includes(id)) {
-      //element already selected
+      // element already selected
       newSelected = newSelected.filter((el) => el !== id);
     } else {
-      //element is not selected
+      // element is not selected
       newSelected.push(id);
     }
     setSelectedItems(newSelected);
