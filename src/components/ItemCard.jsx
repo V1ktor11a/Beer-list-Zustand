@@ -8,10 +8,23 @@ import {
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ItemCard = ({ id, name, description, imageUrl, onItemSelect }) => {
+const ItemCard = ({
+  id,
+  name,
+  description,
+  imageUrl,
+  onItemSelect,
+  isSelected,
+}) => {
   const navigate = useNavigate();
   return (
-    <Card sx={{ width: 350, height: 300 }}>
+    <Card
+      sx={{
+        width: 350,
+        height: 300,
+        outline: isSelected ? '2px solid red' : 'none',
+      }}
+    >
       <CardActionArea
         sx={{ display: 'flex', height: '100%' }}
         onMouseUp={(e) => {

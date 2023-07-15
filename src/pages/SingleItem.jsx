@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, useParams } from 'react-router-dom';
+import { Link, Navigate, useParams } from 'react-router-dom';
 import { useBeerStore } from '../store/store';
 import {
   Box,
@@ -7,7 +7,6 @@ import {
   CardContent,
   CardMedia,
   Fab,
-  Link,
   Typography,
 } from '@mui/material';
 
@@ -54,7 +53,7 @@ const SingleItem = () => {
             variant='extended'
             sx={{ position: 'fixed', bottom: 40, right: 60 }}
           >
-            <Link href='/' underline='none' color='inherit'>
+            <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
               Back to the list
             </Link>
             {/* <Link to='/'>Back to the list</Link> */}
