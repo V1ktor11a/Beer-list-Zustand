@@ -82,7 +82,7 @@ const Home = () => {
         component='h1'
         sx={{ padding: '20px 0' }}
       >
-        List Of Beer
+        List Of Beers
       </Typography>
       <Grid container justifyContent='center' spacing={2}>
         {reducedList.map((item) => (
